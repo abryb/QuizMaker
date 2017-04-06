@@ -38,6 +38,41 @@ class Quiz implements JsonSerializable {
             return null;
         }
     }
+    
+    public static function loadQuizById(PDO $conn, $id) {
+        $stmt = $conn->prepare('SELECT * FROM quizes WHERE id=:id');
+        $result = $stmt->execute(['id' => $id]);
+
+        if ($result && $stmt->rowCount() > 0) {
+            $row = $stmt->fetch();
+
+            $quiz = new Quiz();
+            $quiz->id = $row['id'];
+            $quiz->name = $row['name'];
+            $quiz->code = $row['code'];
+            $quiz->description = $row['dsc'];
+            $quiz->questions = json_decode($row['questions']);
+            $quiz->answers = json_decode($row['answers']);
+            $quiz->correct = json_decode($row['correct']);
+            
+            return $quiz;
+        } else {
+            return null;
+        }
+    }
+    
+    public static function findQuizeIdbyCode(PDO $conn, $code) {
+        $stmt = $conn->prepare('SELECT id FROM quizes WHERE code=:code');
+        $result = $stmt->execute(['code' => $code]);
+        
+        if ($result && $stmt->rowCount() > 0) {
+            $idSql = $stmt->fetch();
+            return $idSql['id'];
+        } else {
+            return -1;
+        }
+        
+    }
 
     public function jsonSerialize() {
         echo "fdsf";

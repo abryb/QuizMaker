@@ -83,7 +83,7 @@ $(function () {
                 e.preventDefault();
             });
             window.scrollTo(0, 0);
-            var doneDiv = $('<div class="row"><h1>Your code is '+result+'</h1></div>');
+            var doneDiv = $('<div class="row"><h2>Your code is: '+result+'</h2></div><br><h2>');
            doneDiv.insertBefore(form);
         }).fail(function(){
             console.log('Error');
