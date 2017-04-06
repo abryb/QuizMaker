@@ -23,7 +23,7 @@ $(function () {
         //setting event on add answer button
         question.on('click', '.addAnswer', function (e) {
             e.preventDefault();
-            var answer = $('<label>Answer ' + ansCount + ' (check if correct): <input type="checkbox" name="correct" value="true"><input data-ans ="' + ansCount + '"type="text" class="form-control" name="answer"></label>');
+            var answer = $('<label>Answer ' + ansCount + ' (check if correct): <input type="checkbox" name="correct"><input data-ans ="' + ansCount + '"type="text" class="form-control" name="answer"></label>');
             answer.insertBefore($(this));
             ansCount++;
         });
@@ -53,12 +53,33 @@ $(function () {
 
         // !!! geting quiz questions and answers
         var quizQuestionsDivs = questionsDiv.children('div');
-        quizQuestionsDivs.each(function (index, value) {
-            $(value).each(function (index, value) {
-                var question = $(value).find('textarea').val();
-                quizObj.questions.push(question);
+        //variable for counting questions, and setting index in array of answers and correct
+        var qstCount = 0;
+        
+        quizQuestionsDivs.each(function (index, singleDiv) {
+            
+            //getting quiz questions
+            var question = $(singleDiv).find('textarea').val();
+            quizObj.questions.push(question);
 
+            //getting quiz answers
+            quizObj.answers[qstCount] = [];
+            var answers = $(singleDiv).find('input[name="answer"]');
+            //pushing answers to array
+            answers.each(function (index, ans) {
+                quizObj.answers[qstCount].push($(ans).val());
             });
+            
+            //getting quiz correct
+            quizObj.correct[qstCount] = [];
+            var corrects = $(singleDiv).find('input[type="checkbox"]');
+            corrects.each(function (index, cor) {
+                console.log(cor);
+                quizObj.correct[qstCount].push($(cor).is(":checked")); // push boolean value, if is checked or not
+            });            
+            
+            qstCount++;
+
             console.log(quizObj);
         });
 
