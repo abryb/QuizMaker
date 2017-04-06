@@ -5,7 +5,6 @@ require_once(__DIR__ . '/src/Quiz.php'); //Quiz class
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-//    var_dump($_POST);
     $name = $_POST['name'];
     $description = $_POST['descr'];
     $questions = $_POST['questions'];
@@ -19,12 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quizObj->setAnswers($answers);
     $quizObj->setCorrect($correct);
     $quizObj->setCode();
-    var_dump($quizObj);
-    $quizObj->create($conn);
-    
+    $result = $quizObj->create($conn);
 
-//    $json = json_encode($answers);
-//    $str = serialize($answers);
-//    var_dump($str);
-//    var_dump($json);
+    if ($result) {
+        echo json_encode($quizObj->getCode());
+    }
 }

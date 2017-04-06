@@ -79,7 +79,12 @@ $(function () {
            dataType: 'json',
            type: 'POST'
         }).done(function(result) {
-            console.log(result);
+            sendBtn.off().on('click', function(e){
+                e.preventDefault();
+            });
+            window.scrollTo(0, 0);
+            var doneDiv = $('<div class="row"><h1>Your code is '+result+'</h1></div>');
+           doneDiv.insertBefore(form);
         }).fail(function(){
             console.log('Error');
         });
