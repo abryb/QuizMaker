@@ -1,33 +1,30 @@
 <?php
+
+require_once(__DIR__ . '/src/db.php'); //db connection
+require_once(__DIR__ . '/src/Quiz.php'); //Quiz class
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    var_dump($_POST);
-    $name = '';
-    $description = '';
-    $questionArray = [];
-    $corretArray= [];
+
+//    var_dump($_POST);
+    $name = $_POST['name'];
+    $description = $_POST['descr'];
+    $questions = $_POST['questions'];
+    $answers = $_POST['answers'];
+    $correct = $_POST['correct'];
+
+    $quizObj = new Quiz();
+    $quizObj->setName($name);
+    $quizObj->setDescription($description);
+    $quizObj->setQuestions($questions);
+    $quizObj->setAnswers($answers);
+    $quizObj->setCorrect($correct);
+    $quizObj->setCode();
+    var_dump($quizObj);
+    $quizObj->create($conn);
     
-    
-    foreach ($_POST as $key => $val) {
-        
-        switch (true) {
-            case ($key ==='name'):
-                $name = $val;
-                break;
-            case ($key === 'description'):
-                $description = $val;
-                break;
-            case (strstr($key, 'question')):
-                echo "DZIAŁA";
-                $questionArray[$val] = [];
-                break;
-            case (strstr($key, 'ans')):
-                $questionArray[] = '';
-                break;
-            case (strstr($key, 'corr')):
-                break;
-            default:
-                break;
-        }
-        
-    }
+
+//    $json = json_encode($answers);
+//    $str = serialize($answers);
+//    var_dump($str);
+//    var_dump($json);
 }
