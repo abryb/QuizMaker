@@ -13,7 +13,7 @@ $(function () {
     addQuest.on('click', function (e) {
          e.preventDefault();
         //single question div
-        var question = $('<div data-qst="' + questCount + '"><label style="font-size: 1.8rem;">Question ' + questCount + ':<textarea cols="70" class="form-control" name="question"></textarea></label><button display="block" type="submit" class="addAnswer btn">Add answer</button></div><hr>');
+        var question = $('<div class="question" data-qst="' + questCount + '"><label style="font-size: 1.8rem;">Question ' + questCount + ':<textarea cols="70" class="form-control" name="question"></textarea></label><button display="block" type="submit" class="addAnswer btn">Add answer</button></div><hr>');
 
         //setting event on add answer button
         var ansCount = 1;
