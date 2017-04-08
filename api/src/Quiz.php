@@ -75,7 +75,7 @@ class Quiz implements JsonSerializable {
     }
 
     public function jsonSerialize() {
-        echo "fdsf";
+        
     }
     
     // Getters and Setters
