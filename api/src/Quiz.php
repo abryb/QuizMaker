@@ -111,7 +111,7 @@ class Quiz implements JsonSerializable {
         $this->code = substr(md5(mt_rand()), mt_rand(0, 22), 8);
     }
 
-        public function setName($name) {
+    public function setName($name) {
         $this->name = $name;
     }
 
